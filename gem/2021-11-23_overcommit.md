@@ -22,9 +22,38 @@ This repository contains hooks installed by Overcommit, but the `overcommit` gem
 Install it with `gem install overcommit`.
 ```
 
+↓　以下で解決
+
+```
+# .overcommit.yml
+
+CommitMsg:
+  ALL:
+    enabled: false
+PreCommit:
+ RuboCop:
+   enabled: true
+   command: ['bundle', 'exec', 'rubocop']
+   on_warn: fail # Treat all warnings as failures
+gemfile: Gemfile ←　これが抜けてました.
+```
+
 # 使い方
 ```
-$ overcommit -h
+$ bundle exec overcommit -h
+```
+
+# commitの実行結果
+```
+rails@app:/app$ git commit -m 'corrected overcommit config'
+Running pre-commit hooks
+Analyze with RuboCop........................................[RuboCop] OK
+
+✓ All pre-commit hooks passed
+
+[main 5c612a4] corrected overcommit config
+ 3 files changed, 14 insertions(+), 1 deletion(-)
+
 ```
 
 # hooksのスキップ
